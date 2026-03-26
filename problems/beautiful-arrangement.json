@@ -9,26 +9,19 @@
     "Backtracking",
     "Bitmask"
   ],
-  "description": "Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a beautiful arrangement if for every i (1 <= i <= n), either of the following is true:\n\nperm[i] is divisible by i.\ni is divisible by perm[i].\n\nGiven an integer n, return the number of the beautiful arrangements that you can construct.\n\u00a0\nExample 1:\n\nInput: n = 2\nOutput: 2\nExplanation: \nThe first beautiful arrangement is [1,2]:\n    - perm[1] = 1 is divisible by i = 1\n    - perm[2] = 2 is divisible by i = 2\nThe second beautiful arrangement is [2,1]:\n    - perm[1] = 2 is divisible by i = 1\n    - i = 2 is divisible by perm[2] = 1\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n\u00a0\nConstraints:\n\n1 <= n <= 15\n\n",
+  "description": "Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a beautiful arrangement if for every i (1 <= i <= n), either of the following is true:\n\nperm[i] is divisible by i.\ni is divisible by perm[i].\n\nGiven an integer n, return the number of the beautiful arrangements that you can construct.\n \nExample 1:\n\nInput: n = 2\nOutput: 2\nExplanation: \nThe first beautiful arrangement is [1,2]:\n    - perm[1] = 1 is divisible by i = 1\n    - perm[2] = 2 is divisible by i = 2\nThe second beautiful arrangement is [2,1]:\n    - perm[1] = 2 is divisible by i = 1\n    - i = 2 is divisible by perm[2] = 1\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n \nConstraints:\n\n1 <= n <= 15\n\n",
   "entry_point": "Solution().countArrangement",
   "starter_code": "class Solution:\n    def countArrangement(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 8) == 132\n    assert candidate(n = 3) == 3\n    assert candidate(n = 11) == 750\n    assert candidate(n = 15) == 24679\n    assert candidate(n = 4) == 8\n    assert candidate(n = 12) == 4010\n    assert candidate(n = 14) == 10680\n    assert candidate(n = 9) == 250\n    assert candidate(n = 13) == 4237\n    assert candidate(n = 6) == 36\n    assert candidate(n = 2) == 2\n    assert candidate(n = 1) == 1\n    assert candidate(n = 7) == 41\n    assert candidate(n = 10) == 700\n    assert candidate(n = 5) == 10\n",
+  "check_function": "def check(candidate):\n    assert candidate(n=1) == 1\n    assert candidate(n=2) == 2\n    assert candidate(n=3) == 3\n    assert candidate(n=4) == 8\n    assert candidate(n=5) == 10\n    assert candidate(n=6) == 36\n    assert candidate(n=7) == 41\n    assert candidate(n=8) == 132",
   "test_cases": [
-    "assert candidate(n = 8) == 132",
-    "assert candidate(n = 3) == 3",
-    "assert candidate(n = 11) == 750",
-    "assert candidate(n = 15) == 24679",
-    "assert candidate(n = 4) == 8",
-    "assert candidate(n = 12) == 4010",
-    "assert candidate(n = 14) == 10680",
-    "assert candidate(n = 9) == 250",
-    "assert candidate(n = 13) == 4237",
-    "assert candidate(n = 6) == 36",
-    "assert candidate(n = 2) == 2",
-    "assert candidate(n = 1) == 1",
-    "assert candidate(n = 7) == 41",
-    "assert candidate(n = 10) == 700",
-    "assert candidate(n = 5) == 10"
+    "assert candidate(n=1) == 1",
+    "assert candidate(n=2) == 2",
+    "assert candidate(n=3) == 3",
+    "assert candidate(n=4) == 8",
+    "assert candidate(n=5) == 10",
+    "assert candidate(n=6) == 36",
+    "assert candidate(n=7) == 41",
+    "assert candidate(n=8) == 132"
   ]
 }

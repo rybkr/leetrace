@@ -7,22 +7,19 @@
     "Dynamic Programming",
     "Backtracking"
   ],
-  "description": "Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.\n\u00a0\nExample 1:\n\nInput: n = 2\nOutput: 91\nExplanation: The answer should be the total numbers in the range of 0 \u2264 x < 100, excluding 11,22,33,44,55,66,77,88,99\n\nExample 2:\n\nInput: n = 0\nOutput: 1\n\n\u00a0\nConstraints:\n\n0 <= n <= 8\n\n",
+  "description": "Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.\n \nExample 1:\n\nInput: n = 2\nOutput: 91\nExplanation: The answer should be the total numbers in the range of 0 ≤ x < 100, excluding 11,22,33,44,55,66,77,88,99\n\nExample 2:\n\nInput: n = 0\nOutput: 1\n\n \nConstraints:\n\n0 <= n <= 8\n\n",
   "entry_point": "Solution().countNumbersWithUniqueDigits",
   "starter_code": "class Solution:\n    def countNumbersWithUniqueDigits(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 0) == 1\n    assert candidate(n = 8) == 2345851\n    assert candidate(n = 3) == 739\n    assert candidate(n = 4) == 5275\n    assert candidate(n = 6) == 168571\n    assert candidate(n = 2) == 91\n    assert candidate(n = 1) == 10\n    assert candidate(n = 7) == 712891\n    assert candidate(n = 5) == 32491\n    assert candidate(n = 9) == 5611771\n    assert candidate(n = 10) == 8877691\n",
+  "check_function": "def check(candidate):\n    assert candidate(n=0) == 1\n    assert candidate(n=1) == 10\n    assert candidate(n=2) == 91\n    assert candidate(n=3) == 739\n    assert candidate(n=4) == 5275\n    assert candidate(n=5) == 32491\n    assert candidate(n=6) == 168571\n    assert candidate(n=8) == 2345851",
   "test_cases": [
-    "assert candidate(n = 0) == 1",
-    "assert candidate(n = 8) == 2345851",
-    "assert candidate(n = 3) == 739",
-    "assert candidate(n = 4) == 5275",
-    "assert candidate(n = 6) == 168571",
-    "assert candidate(n = 2) == 91",
-    "assert candidate(n = 1) == 10",
-    "assert candidate(n = 7) == 712891",
-    "assert candidate(n = 5) == 32491",
-    "assert candidate(n = 9) == 5611771",
-    "assert candidate(n = 10) == 8877691"
+    "assert candidate(n=0) == 1",
+    "assert candidate(n=1) == 10",
+    "assert candidate(n=2) == 91",
+    "assert candidate(n=3) == 739",
+    "assert candidate(n=4) == 5275",
+    "assert candidate(n=5) == 32491",
+    "assert candidate(n=6) == 168571",
+    "assert candidate(n=8) == 2345851"
   ]
 }

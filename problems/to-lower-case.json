@@ -5,14 +5,19 @@
   "tags": [
     "String"
   ],
-  "description": "Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.\n\u00a0\nExample 1:\n\nInput: s = \"Hello\"\nOutput: \"hello\"\n\nExample 2:\n\nInput: s = \"here\"\nOutput: \"here\"\n\nExample 3:\n\nInput: s = \"LOVELY\"\nOutput: \"lovely\"\n\n\u00a0\nConstraints:\n\n1 <= s.length <= 100\ns consists of printable ASCII characters.\n\n",
+  "description": "Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.\n \nExample 1:\n\nInput: s = \"Hello\"\nOutput: \"hello\"\n\nExample 2:\n\nInput: s = \"here\"\nOutput: \"here\"\n\nExample 3:\n\nInput: s = \"LOVELY\"\nOutput: \"lovely\"\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of printable ASCII characters.\n\n",
   "entry_point": "Solution().toLowerCase",
   "starter_code": "class Solution:\n    def toLowerCase(self, s: str) -> str:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"Hello\") == \"hello\"\n    assert candidate(s = \"here\") == \"here\"\n    assert candidate(s = \"LOVELY\") == \"lovely\"\n",
+  "check_function": "def check(candidate):\n    assert candidate(s = \"Hello\") == \"hello\"\n    assert candidate(s = \"here\") == \"here\"\n    assert candidate(s = \"LOVELY\") == \"lovely\"\n    assert candidate(s = \"123ABC!?\") == \"123abc!?\"\n    assert candidate(s = \"MiXeD Case 42\") == \"mixed case 42\"\n    assert candidate(s = \"already lower\") == \"already lower\"\n    assert candidate(s = \"Z\") == \"z\"\n    assert candidate(s = \"Python3.11\") == \"python3.11\"",
   "test_cases": [
     "assert candidate(s = \"Hello\") == \"hello\"",
     "assert candidate(s = \"here\") == \"here\"",
-    "assert candidate(s = \"LOVELY\") == \"lovely\""
+    "assert candidate(s = \"LOVELY\") == \"lovely\"",
+    "assert candidate(s = \"123ABC!?\") == \"123abc!?\"",
+    "assert candidate(s = \"MiXeD Case 42\") == \"mixed case 42\"",
+    "assert candidate(s = \"already lower\") == \"already lower\"",
+    "assert candidate(s = \"Z\") == \"z\"",
+    "assert candidate(s = \"Python3.11\") == \"python3.11\""
   ]
 }

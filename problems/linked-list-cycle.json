@@ -7,17 +7,19 @@
     "Linked List",
     "Two Pointers"
   ],
-  "description": "Given head, the head of a linked list, determine if the linked list has a cycle in it.\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the\u00a0next\u00a0pointer. Internally, pos\u00a0is used to denote the index of the node that\u00a0tail's\u00a0next\u00a0pointer is connected to.\u00a0Note that\u00a0pos\u00a0is not passed as a parameter.\nReturn\u00a0true if there is a cycle in the linked list. Otherwise, return false.\n\u00a0\nExample 1:\n\n\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n\nExample 2:\n\n\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 0th node.\n\nExample 3:\n\n\nInput: head = [1], pos = -1\nOutput: false\nExplanation: There is no cycle in the linked list.\n\n\u00a0\nConstraints:\n\nThe number of the nodes in the list is in the range [0, 104].\n-105 <= Node.val <= 105\npos is -1 or a valid index in the linked-list.\n\n\u00a0\nFollow up: Can you solve it using O(1) (i.e. constant) memory?\n",
+  "description": "Given head, the head of a linked list, determine if the linked list has a cycle in it.\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.\nReturn true if there is a cycle in the linked list. Otherwise, return false.\n \nExample 1:\n\n\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n\nExample 2:\n\n\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 0th node.\n\nExample 3:\n\n\nInput: head = [1], pos = -1\nOutput: false\nExplanation: There is no cycle in the linked list.\n\n \nConstraints:\n\nThe number of the nodes in the list is in the range [0, 104].\n-105 <= Node.val <= 105\npos is -1 or a valid index in the linked-list.\n\n \nFollow up: Can you solve it using O(1) (i.e. constant) memory?\n",
   "entry_point": "Solution().hasCycle",
   "starter_code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(head = list_node([1, 2])) == False\n    assert candidate(head = list_node([1])) == False\n    assert candidate(head = list_node([])) == False\n    assert candidate(head = list_node([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1])) == False\n    assert candidate(head = list_node([3, 2, 0, -4])) == False\n    assert candidate(head = list_node([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) == False\n",
+  "check_function": "def check(candidate):\n    assert candidate(head = list_node([])) == False\n    assert candidate(head = list_node([1])) == False\n    assert candidate(head = list_node([1,2])) == False\n    assert candidate(head = list_node([3,2,0,-4])) == False\n    assert candidate(head = list_node([1,2,3,4])) == False\n    assert candidate(head = list_node([1,1,1,1])) == False\n    assert candidate(head = list_node([10,20,30,40,50])) == False\n    assert candidate(head = list_node([1,2,3,4,5,6])) == False",
   "test_cases": [
-    "assert candidate(head = list_node([1, 2])) == False",
-    "assert candidate(head = list_node([1])) == False",
     "assert candidate(head = list_node([])) == False",
-    "assert candidate(head = list_node([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1])) == False",
-    "assert candidate(head = list_node([3, 2, 0, -4])) == False",
-    "assert candidate(head = list_node([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) == False"
+    "assert candidate(head = list_node([1])) == False",
+    "assert candidate(head = list_node([1,2])) == False",
+    "assert candidate(head = list_node([3,2,0,-4])) == False",
+    "assert candidate(head = list_node([1,2,3,4])) == False",
+    "assert candidate(head = list_node([1,1,1,1])) == False",
+    "assert candidate(head = list_node([10,20,30,40,50])) == False",
+    "assert candidate(head = list_node([1,2,3,4,5,6])) == False"
   ]
 }

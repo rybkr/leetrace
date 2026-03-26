@@ -7,17 +7,19 @@
     "Math",
     "String"
   ],
-  "description": "You are given a 0-indexed string word of length n\u00a0consisting of digits, and a positive integer\u00a0m.\nThe divisibility array div of word is an integer array of length n such that:\n\ndiv[i] = 1 if the\u00a0numeric value\u00a0of\u00a0word[0,...,i] is divisible by m, or\ndiv[i] = 0 otherwise.\n\nReturn the divisibility array of word.\n\u00a0\nExample 1:\n\nInput: word = \"998244353\", m = 3\nOutput: [1,1,0,0,0,1,1,0,0]\nExplanation: There are only 4 prefixes that are divisible by 3: \"9\", \"99\", \"998244\", and \"9982443\".\n\nExample 2:\n\nInput: word = \"1010\", m = 10\nOutput: [0,1,0,1]\nExplanation: There are only 2 prefixes that are divisible by 10: \"10\", and \"1010\".\n\n\u00a0\nConstraints:\n\n1 <= n <= 105\nword.length == n\nword consists of digits from 0\u00a0to 9\n1 <= m <= 109\n\n",
+  "description": "You are given a 0-indexed string word of length n consisting of digits, and a positive integer m.\nThe divisibility array div of word is an integer array of length n such that:\n\ndiv[i] = 1 if the numeric value of word[0,...,i] is divisible by m, or\ndiv[i] = 0 otherwise.\n\nReturn the divisibility array of word.\n \nExample 1:\n\nInput: word = \"998244353\", m = 3\nOutput: [1,1,0,0,0,1,1,0,0]\nExplanation: There are only 4 prefixes that are divisible by 3: \"9\", \"99\", \"998244\", and \"9982443\".\n\nExample 2:\n\nInput: word = \"1010\", m = 10\nOutput: [0,1,0,1]\nExplanation: There are only 2 prefixes that are divisible by 10: \"10\", and \"1010\".\n\n \nConstraints:\n\n1 <= n <= 105\nword.length == n\nword consists of digits from 0 to 9\n1 <= m <= 109\n\n",
   "entry_point": "Solution().divisibilityArray",
   "starter_code": "class Solution:\n    def divisibilityArray(self, word: str, m: int) -> List[int]:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(word = \"1111111111\",m = 5) == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\n    assert candidate(word = \"998244353\",m = 3) == [1, 1, 0, 0, 0, 1, 1, 0, 0]\n    assert candidate(word = \"00000\",m = 1) == [1, 1, 1, 1, 1]\n    assert candidate(word = \"1010\",m = 10) == [0, 1, 0, 1]\n    assert candidate(word = \"00000\",m = 5) == [1, 1, 1, 1, 1]\n    assert candidate(word = \"1111111111\",m = 11) == [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]\n",
+  "check_function": "def check(candidate):\n    assert candidate(word = \"998244353\",m = 3) == [1, 1, 0, 0, 0, 1, 1, 0, 0]\n    assert candidate(word = \"1010\",m = 10) == [0, 1, 0, 1]\n    assert candidate(word = \"00000\",m = 5) == [1, 1, 1, 1, 1]\n    assert candidate(word = \"7\",m = 7) == [1]\n    assert candidate(word = \"123456\",m = 7) == [0, 0, 0, 0, 0, 0]\n    assert candidate(word = \"111111\",m = 11) == [0, 1, 0, 1, 0, 1]\n    assert candidate(word = \"1000\",m = 8) == [0, 0, 0, 1]\n    assert candidate(word = \"909\",m = 9) == [1, 1, 1]",
   "test_cases": [
-    "assert candidate(word = \"1111111111\",m = 5) == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",
     "assert candidate(word = \"998244353\",m = 3) == [1, 1, 0, 0, 0, 1, 1, 0, 0]",
-    "assert candidate(word = \"00000\",m = 1) == [1, 1, 1, 1, 1]",
     "assert candidate(word = \"1010\",m = 10) == [0, 1, 0, 1]",
     "assert candidate(word = \"00000\",m = 5) == [1, 1, 1, 1, 1]",
-    "assert candidate(word = \"1111111111\",m = 11) == [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]"
+    "assert candidate(word = \"7\",m = 7) == [1]",
+    "assert candidate(word = \"123456\",m = 7) == [0, 0, 0, 0, 0, 0]",
+    "assert candidate(word = \"111111\",m = 11) == [0, 1, 0, 1, 0, 1]",
+    "assert candidate(word = \"1000\",m = 8) == [0, 0, 0, 1]",
+    "assert candidate(word = \"909\",m = 9) == [1, 1, 1]"
   ]
 }

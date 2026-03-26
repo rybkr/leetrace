@@ -6,13 +6,19 @@
     "Two Pointers",
     "String"
   ],
-  "description": "Given a string s, reverse only all the vowels in the string and return it.\nThe vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.\n\u00a0\nExample 1:\n\nInput: s = \"IceCreAm\"\nOutput: \"AceCreIm\"\nExplanation:\nThe vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes \"AceCreIm\".\n\nExample 2:\n\nInput: s = \"leetcode\"\nOutput: \"leotcede\"\n\n\u00a0\nConstraints:\n\n1 <= s.length <= 3 * 105\ns consist of printable ASCII characters.\n\n",
+  "description": "Given a string s, reverse only all the vowels in the string and return it.\nThe vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.\n \nExample 1:\n\nInput: s = \"IceCreAm\"\nOutput: \"AceCreIm\"\nExplanation:\nThe vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes \"AceCreIm\".\n\nExample 2:\n\nInput: s = \"leetcode\"\nOutput: \"leotcede\"\n\n \nConstraints:\n\n1 <= s.length <= 3 * 105\ns consist of printable ASCII characters.\n\n",
   "entry_point": "Solution().reverseVowels",
   "starter_code": "class Solution:\n    def reverseVowels(self, s: str) -> str:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"hello\") == \"holle\"\n    assert candidate(s = \"leetcode\") == \"leotcede\"\n",
+  "check_function": "def check(candidate):\n    assert candidate('hello') == 'holle'\n    assert candidate('leetcode') == 'leotcede'\n    assert candidate('aA') == 'Aa'\n    assert candidate('') == ''\n    assert candidate('bcdfg') == 'bcdfg'\n    assert candidate('IceCreAm') == 'AceCreIm'\n    assert candidate('race car') == 'race car'\n    assert candidate('aeiou') == 'uoiea'",
   "test_cases": [
-    "assert candidate(s = \"hello\") == \"holle\"",
-    "assert candidate(s = \"leetcode\") == \"leotcede\""
+    "assert candidate('hello') == 'holle'",
+    "assert candidate('leetcode') == 'leotcede'",
+    "assert candidate('aA') == 'Aa'",
+    "assert candidate('') == ''",
+    "assert candidate('bcdfg') == 'bcdfg'",
+    "assert candidate('IceCreAm') == 'AceCreIm'",
+    "assert candidate('race car') == 'race car'",
+    "assert candidate('aeiou') == 'uoiea'"
   ]
 }

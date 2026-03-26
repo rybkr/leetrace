@@ -5,14 +5,18 @@
   "tags": [
     "String"
   ],
-  "description": "Given a string s consisting of words and spaces, return the length of the last word in the string.\nA word is a maximal substring consisting of non-space characters only.\n\u00a0\nExample 1:\n\nInput: s = \"Hello World\"\nOutput: 5\nExplanation: The last word is \"World\" with length 5.\n\nExample 2:\n\nInput: s = \"   fly me   to   the moon  \"\nOutput: 4\nExplanation: The last word is \"moon\" with length 4.\n\nExample 3:\n\nInput: s = \"luffy is still joyboy\"\nOutput: 6\nExplanation: The last word is \"joyboy\" with length 6.\n\n\u00a0\nConstraints:\n\n1 <= s.length <= 104\ns consists of only English letters and spaces ' '.\nThere will be at least one word in s.\n\n",
+  "description": "Given a string s consisting of words and spaces, return the length of the last word in the string.\nA word is a maximal substring consisting of non-space characters only.\n \nExample 1:\n\nInput: s = \"Hello World\"\nOutput: 5\nExplanation: The last word is \"World\" with length 5.\n\nExample 2:\n\nInput: s = \"   fly me   to   the moon  \"\nOutput: 4\nExplanation: The last word is \"moon\" with length 4.\n\nExample 3:\n\nInput: s = \"luffy is still joyboy\"\nOutput: 6\nExplanation: The last word is \"joyboy\" with length 6.\n\n \nConstraints:\n\n1 <= s.length <= 104\ns consists of only English letters and spaces ' '.\nThere will be at least one word in s.\n\n",
   "entry_point": "Solution().lengthOfLastWord",
   "starter_code": "class Solution:\n    def lengthOfLastWord(self, s: str) -> int:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"Hello World\") == 5\n    assert candidate(s = \"   fly me   to   the moon  \") == 4\n    assert candidate(s = \"luffy is still joyboy\") == 6\n",
+  "check_function": "def check(candidate):\n    assert candidate(\"Hello World\") == 5\n    assert candidate(\"   fly me   to   the moon  \") == 4\n    assert candidate(\"luffy is still joyboy\") == 6\n    assert candidate(\"word\") == 4\n    assert candidate(\" a \") == 1\n    assert candidate(\"one two\") == 3\n    assert candidate(\" punctuation! test\") == 4",
   "test_cases": [
-    "assert candidate(s = \"Hello World\") == 5",
-    "assert candidate(s = \"   fly me   to   the moon  \") == 4",
-    "assert candidate(s = \"luffy is still joyboy\") == 6"
+    "assert candidate(\"Hello World\") == 5",
+    "assert candidate(\"   fly me   to   the moon  \") == 4",
+    "assert candidate(\"luffy is still joyboy\") == 6",
+    "assert candidate(\"word\") == 4",
+    "assert candidate(\" a \") == 1",
+    "assert candidate(\"one two\") == 3",
+    "assert candidate(\" punctuation! test\") == 4"
   ]
 }

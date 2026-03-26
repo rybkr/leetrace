@@ -6,14 +6,19 @@
     "Two Pointers",
     "String"
   ],
-  "description": "Given an input string s, reverse the order of the words.\nA word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.\nReturn a string of the words in reverse order concatenated by a single space.\nNote that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.\n\u00a0\nExample 1:\n\nInput: s = \"the sky is blue\"\nOutput: \"blue is sky the\"\n\nExample 2:\n\nInput: s = \"  hello world  \"\nOutput: \"world hello\"\nExplanation: Your reversed string should not contain leading or trailing spaces.\n\nExample 3:\n\nInput: s = \"a good   example\"\nOutput: \"example good a\"\nExplanation: You need to reduce multiple spaces between two words to a single space in the reversed string.\n\n\u00a0\nConstraints:\n\n1 <= s.length <= 104\ns contains English letters (upper-case and lower-case), digits, and spaces ' '.\nThere is at least one word in s.\n\n\u00a0\nFollow-up:\u00a0If the string data type is mutable in your language, can\u00a0you solve it\u00a0in-place\u00a0with\u00a0O(1)\u00a0extra space?\n",
+  "description": "Given an input string s, reverse the order of the words.\nA word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.\nReturn a string of the words in reverse order concatenated by a single space.\nNote that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.\n \nExample 1:\n\nInput: s = \"the sky is blue\"\nOutput: \"blue is sky the\"\n\nExample 2:\n\nInput: s = \"  hello world  \"\nOutput: \"world hello\"\nExplanation: Your reversed string should not contain leading or trailing spaces.\n\nExample 3:\n\nInput: s = \"a good   example\"\nOutput: \"example good a\"\nExplanation: You need to reduce multiple spaces between two words to a single space in the reversed string.\n\n \nConstraints:\n\n1 <= s.length <= 104\ns contains English letters (upper-case and lower-case), digits, and spaces ' '.\nThere is at least one word in s.\n\n \nFollow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?\n",
   "entry_point": "Solution().reverseWords",
   "starter_code": "class Solution:\n    def reverseWords(self, s: str) -> str:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"the sky is blue\") == \"blue is sky the\"\n    assert candidate(s = \" \u00a0hello world \u00a0\") == \"world hello\"\n    assert candidate(s = \"a good \u00a0 example\") == \"example good a\"\n",
+  "check_function": "def check(candidate):\n    assert candidate(s = 'the sky is blue') == 'blue is sky the'\n    assert candidate(s = '  hello world  ') == 'world hello'\n    assert candidate(s = 'a good   example') == 'example good a'\n    assert candidate(s = 'single') == 'single'\n    assert candidate(s = '    ') == ''\n    assert candidate(s = ' Bob    Loves  Alice   ') == 'Alice Loves Bob'\n    assert candidate(s = 'one two') == 'two one'\n    assert candidate(s = '  multiple   spaces   inside  string ') == 'string inside spaces multiple'",
   "test_cases": [
-    "assert candidate(s = \"the sky is blue\") == \"blue is sky the\"",
-    "assert candidate(s = \" \u00a0hello world \u00a0\") == \"world hello\"",
-    "assert candidate(s = \"a good \u00a0 example\") == \"example good a\""
+    "assert candidate(s = 'the sky is blue') == 'blue is sky the'",
+    "assert candidate(s = '  hello world  ') == 'world hello'",
+    "assert candidate(s = 'a good   example') == 'example good a'",
+    "assert candidate(s = 'single') == 'single'",
+    "assert candidate(s = '    ') == ''",
+    "assert candidate(s = ' Bob    Loves  Alice   ') == 'Alice Loves Bob'",
+    "assert candidate(s = 'one two') == 'two one'",
+    "assert candidate(s = '  multiple   spaces   inside  string ') == 'string inside spaces multiple'"
   ]
 }

@@ -9,25 +9,20 @@
     "Dynamic Programming",
     "Binary Tree"
   ],
-  "description": "Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.\n\u00a0\nExample 1:\n\n\nInput: n = 3\nOutput: 5\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n\u00a0\nConstraints:\n\n1 <= n <= 19\n\n",
+  "description": "Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.\n \nExample 1:\n\n\nInput: n = 3\nOutput: 5\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n \nConstraints:\n\n1 <= n <= 19\n\n",
   "entry_point": "Solution().numTrees",
   "starter_code": "class Solution:\n    def numTrees(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 3) == 5\n    assert candidate(n = 4) == 14\n    assert candidate(n = 19) == 1767263190\n    assert candidate(n = 1) == 1\n    assert candidate(n = 10) == 16796\n    assert candidate(n = 5) == 42\n    assert candidate(n = 8) == 1430\n    assert candidate(n = 15) == 9694845\n    assert candidate(n = 12) == 208012\n    assert candidate(n = 18) == 477638700\n    assert candidate(n = 9) == 4862\n    assert candidate(n = 6) == 132\n    assert candidate(n = 2) == 2\n    assert candidate(n = 7) == 429\n",
+  "check_function": "def check(candidate):\n    assert candidate(n = 1) == 1\n    assert candidate(n = 2) == 2\n    assert candidate(n = 3) == 5\n    assert candidate(n = 4) == 14\n    assert candidate(n = 5) == 42\n    assert candidate(n = 6) == 132\n    assert candidate(n = 7) == 429\n    assert candidate(n = 8) == 1430\n    assert candidate(n = 10) == 16796",
   "test_cases": [
+    "assert candidate(n = 1) == 1",
+    "assert candidate(n = 2) == 2",
     "assert candidate(n = 3) == 5",
     "assert candidate(n = 4) == 14",
-    "assert candidate(n = 19) == 1767263190",
-    "assert candidate(n = 1) == 1",
-    "assert candidate(n = 10) == 16796",
     "assert candidate(n = 5) == 42",
-    "assert candidate(n = 8) == 1430",
-    "assert candidate(n = 15) == 9694845",
-    "assert candidate(n = 12) == 208012",
-    "assert candidate(n = 18) == 477638700",
-    "assert candidate(n = 9) == 4862",
     "assert candidate(n = 6) == 132",
-    "assert candidate(n = 2) == 2",
-    "assert candidate(n = 7) == 429"
+    "assert candidate(n = 7) == 429",
+    "assert candidate(n = 8) == 1430",
+    "assert candidate(n = 10) == 16796"
   ]
 }

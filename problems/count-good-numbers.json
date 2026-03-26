@@ -6,14 +6,19 @@
     "Recursion",
     "Math"
   ],
-  "description": "A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).\n\nFor example, \"2582\" is good because the digits (2 and 8) at even positions are even and the digits (5 and 2) at odd positions are prime. However, \"3245\" is not good because 3 is at an even index but is not even.\n\nGiven an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.\nA digit string is a string consisting of digits 0 through 9 that may contain leading zeros.\n\u00a0\nExample 1:\n\nInput: n = 1\nOutput: 5\nExplanation: The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".\n\nExample 2:\n\nInput: n = 4\nOutput: 400\n\nExample 3:\n\nInput: n = 50\nOutput: 564908303\n\n\u00a0\nConstraints:\n\n1 <= n <= 1015\n\n",
+  "description": "A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).\n\nFor example, \"2582\" is good because the digits (2 and 8) at even positions are even and the digits (5 and 2) at odd positions are prime. However, \"3245\" is not good because 3 is at an even index but is not even.\n\nGiven an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.\nA digit string is a string consisting of digits 0 through 9 that may contain leading zeros.\n \nExample 1:\n\nInput: n = 1\nOutput: 5\nExplanation: The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".\n\nExample 2:\n\nInput: n = 4\nOutput: 400\n\nExample 3:\n\nInput: n = 50\nOutput: 564908303\n\n \nConstraints:\n\n1 <= n <= 1015\n\n",
   "entry_point": "Solution().countGoodNumbers",
   "starter_code": "class Solution:\n    def countGoodNumbers(self, n: int) -> int:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 1) == 5\n    assert candidate(n = 4) == 400\n    assert candidate(n = 50) == 564908303\n",
+  "check_function": "def check(candidate):\n    assert candidate(n = 1) == 5\n    assert candidate(n = 2) == 20\n    assert candidate(n = 3) == 100\n    assert candidate(n = 4) == 400\n    assert candidate(n = 5) == 2000\n    assert candidate(n = 6) == 8000\n    assert candidate(n = 50) == 564908303\n    assert candidate(n = 12345) == 162263372",
   "test_cases": [
     "assert candidate(n = 1) == 5",
+    "assert candidate(n = 2) == 20",
+    "assert candidate(n = 3) == 100",
     "assert candidate(n = 4) == 400",
-    "assert candidate(n = 50) == 564908303"
+    "assert candidate(n = 5) == 2000",
+    "assert candidate(n = 6) == 8000",
+    "assert candidate(n = 50) == 564908303",
+    "assert candidate(n = 12345) == 162263372"
   ]
 }

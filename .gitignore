@@ -32,3 +32,10 @@ pnpm-debug.log*
 *.swo
 *~
 .DS_Store
+
+# Local problem-repair outputs and preserved snapshots
+old_problems/
+_problems/
+_problems_smoke/
+codex_problem_repair_runs/
+codex_problem_repair_campaigns/

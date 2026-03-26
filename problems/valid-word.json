@@ -5,14 +5,20 @@
   "tags": [
     "String"
   ],
-  "description": "A word is considered valid if:\n\nIt contains a minimum of 3 characters.\nIt contains only digits (0-9), and English letters (uppercase and lowercase).\nIt includes at least one vowel.\nIt includes at least one consonant.\n\nYou are given a string word.\nReturn true if word is valid, otherwise, return false.\nNotes:\n\n'a', 'e', 'i', 'o', 'u', and their uppercases are vowels.\nA consonant is an English letter that is not a vowel.\n\n\u00a0\nExample 1:\n\nInput: word = \"234Adas\"\nOutput: true\nExplanation:\nThis word satisfies the conditions.\n\nExample 2:\n\nInput: word = \"b3\"\nOutput: false\nExplanation:\nThe length of this word is fewer than 3, and does not have a vowel.\n\nExample 3:\n\nInput: word = \"a3$e\"\nOutput: false\nExplanation:\nThis word contains a '$' character and does not have a consonant.\n\n\u00a0\nConstraints:\n\n1 <= word.length <= 20\nword consists of English uppercase and lowercase letters, digits, '@', '#', and '$'.\n\n",
+  "description": "A word is considered valid if:\n\nIt contains a minimum of 3 characters.\nIt contains only digits (0-9), and English letters (uppercase and lowercase).\nIt includes at least one vowel.\nIt includes at least one consonant.\n\nYou are given a string word.\nReturn true if word is valid, otherwise, return false.\nNotes:\n\n'a', 'e', 'i', 'o', 'u', and their uppercases are vowels.\nA consonant is an English letter that is not a vowel.\n\n \nExample 1:\n\nInput: word = \"234Adas\"\nOutput: true\nExplanation:\nThis word satisfies the conditions.\n\nExample 2:\n\nInput: word = \"b3\"\nOutput: false\nExplanation:\nThe length of this word is fewer than 3, and does not have a vowel.\n\nExample 3:\n\nInput: word = \"a3$e\"\nOutput: false\nExplanation:\nThis word contains a '$' character and does not have a consonant.\n\n \nConstraints:\n\n1 <= word.length <= 20\nword consists of English uppercase and lowercase letters, digits, '@', '#', and '$'.\n\n",
   "entry_point": "Solution().isValid",
   "starter_code": "class Solution:\n    def isValid(self, word: str) -> bool:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(word = \"234Adas\") == True\n    assert candidate(word = \"b3\") == False\n    assert candidate(word = \"a3$e\") == False\n",
+  "check_function": "def check(candidate):\n    assert candidate(\"234Adas\") == True\n    assert candidate(\"b3\") == False\n    assert candidate(\"a3$e\") == False\n    assert candidate(\"At1\") == True\n    assert candidate(\"123\") == False\n    assert candidate(\"abc\") == True\n    assert candidate(\"BBB\") == False\n    assert candidate(\"aei\") == False\n    assert candidate(\"U2x\") == True",
   "test_cases": [
-    "assert candidate(word = \"234Adas\") == True",
-    "assert candidate(word = \"b3\") == False",
-    "assert candidate(word = \"a3$e\") == False"
+    "assert candidate(\"234Adas\") == True",
+    "assert candidate(\"b3\") == False",
+    "assert candidate(\"a3$e\") == False",
+    "assert candidate(\"At1\") == True",
+    "assert candidate(\"123\") == False",
+    "assert candidate(\"abc\") == True",
+    "assert candidate(\"BBB\") == False",
+    "assert candidate(\"aei\") == False",
+    "assert candidate(\"U2x\") == True"
   ]
 }

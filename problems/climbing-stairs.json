@@ -7,27 +7,19 @@
     "Math",
     "Dynamic Programming"
   ],
-  "description": "You are climbing a staircase. It takes n steps to reach the top.\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?\n\u00a0\nExample 1:\n\nInput: n = 2\nOutput: 2\nExplanation: There are two ways to climb to the top.\n1. 1 step + 1 step\n2. 2 steps\n\nExample 2:\n\nInput: n = 3\nOutput: 3\nExplanation: There are three ways to climb to the top.\n1. 1 step + 1 step + 1 step\n2. 1 step + 2 steps\n3. 2 steps + 1 step\n\n\u00a0\nConstraints:\n\n1 <= n <= 45\n\n",
+  "description": "You are climbing a staircase. It takes n steps to reach the top.\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?\n \nExample 1:\n\nInput: n = 2\nOutput: 2\nExplanation: There are two ways to climb to the top.\n1. 1 step + 1 step\n2. 2 steps\n\nExample 2:\n\nInput: n = 3\nOutput: 3\nExplanation: There are three ways to climb to the top.\n1. 1 step + 1 step + 1 step\n2. 1 step + 2 steps\n3. 2 steps + 1 step\n\n \nConstraints:\n\n1 <= n <= 45\n\n",
   "entry_point": "Solution().climbStairs",
   "starter_code": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 3) == 3\n    assert candidate(n = 45) == 1836311903\n    assert candidate(n = 4) == 5\n    assert candidate(n = 20) == 10946\n    assert candidate(n = 2) == 2\n    assert candidate(n = 1) == 1\n    assert candidate(n = 10) == 89\n    assert candidate(n = 5) == 8\n    assert candidate(n = 30) == 1346269\n    assert candidate(n = 15) == 987\n    assert candidate(n = 40) == 165580141\n    assert candidate(n = 12) == 233\n    assert candidate(n = 35) == 14930352\n    assert candidate(n = 18) == 4181\n    assert candidate(n = 7) == 21\n    assert candidate(n = 25) == 121393\n",
+  "check_function": "def check(candidate):\n    assert candidate(1) == 1\n    assert candidate(2) == 2\n    assert candidate(3) == 3\n    assert candidate(4) == 5\n    assert candidate(5) == 8\n    assert candidate(6) == 13\n    assert candidate(10) == 89\n    assert candidate(30) == 1346269",
   "test_cases": [
-    "assert candidate(n = 3) == 3",
-    "assert candidate(n = 45) == 1836311903",
-    "assert candidate(n = 4) == 5",
-    "assert candidate(n = 20) == 10946",
-    "assert candidate(n = 2) == 2",
-    "assert candidate(n = 1) == 1",
-    "assert candidate(n = 10) == 89",
-    "assert candidate(n = 5) == 8",
-    "assert candidate(n = 30) == 1346269",
-    "assert candidate(n = 15) == 987",
-    "assert candidate(n = 40) == 165580141",
-    "assert candidate(n = 12) == 233",
-    "assert candidate(n = 35) == 14930352",
-    "assert candidate(n = 18) == 4181",
-    "assert candidate(n = 7) == 21",
-    "assert candidate(n = 25) == 121393"
+    "assert candidate(1) == 1",
+    "assert candidate(2) == 2",
+    "assert candidate(3) == 3",
+    "assert candidate(4) == 5",
+    "assert candidate(5) == 8",
+    "assert candidate(6) == 13",
+    "assert candidate(10) == 89",
+    "assert candidate(30) == 1346269"
   ]
 }

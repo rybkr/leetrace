@@ -6,13 +6,19 @@
     "Two Pointers",
     "String"
   ],
-  "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.\nGiven a string s, return true if it is a palindrome, or false otherwise.\n\u00a0\nExample 1:\n\nInput: s = \"A man, a plan, a canal: Panama\"\nOutput: true\nExplanation: \"amanaplanacanalpanama\" is a palindrome.\n\nExample 2:\n\nInput: s = \"race a car\"\nOutput: false\nExplanation: \"raceacar\" is not a palindrome.\n\nExample 3:\n\nInput: s = \" \"\nOutput: true\nExplanation: s is an empty string \"\" after removing non-alphanumeric characters.\nSince an empty string reads the same forward and backward, it is a palindrome.\n\n\u00a0\nConstraints:\n\n1 <= s.length <= 2 * 105\ns consists only of printable ASCII characters.\n\n",
+  "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.\nGiven a string s, return true if it is a palindrome, or false otherwise.\n \nExample 1:\n\nInput: s = \"A man, a plan, a canal: Panama\"\nOutput: true\nExplanation: \"amanaplanacanalpanama\" is a palindrome.\n\nExample 2:\n\nInput: s = \"race a car\"\nOutput: false\nExplanation: \"raceacar\" is not a palindrome.\n\nExample 3:\n\nInput: s = \" \"\nOutput: true\nExplanation: s is an empty string \"\" after removing non-alphanumeric characters.\nSince an empty string reads the same forward and backward, it is a palindrome.\n\n \nConstraints:\n\n1 <= s.length <= 2 * 105\ns consists only of printable ASCII characters.\n\n",
   "entry_point": "Solution().isPalindrome",
   "starter_code": "class Solution:\n    def isPalindrome(self, s: str) -> bool:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"race a car\") == False\n    assert candidate(s = \" \") == True\n",
+  "check_function": "def check(candidate):\n    assert candidate(s = \"\") == True\n    assert candidate(s = \"A man, a plan, a canal: Panama\") == True\n    assert candidate(s = \"race a car\") == False\n    assert candidate(s = \" \") == True\n    assert candidate(s = \"0P\") == False\n    assert candidate(s = \"abba\") == True\n    assert candidate(s = \"Able was I, ere I saw Elba\") == True\n    assert candidate(s = \"No lemon, no melon\") == True",
   "test_cases": [
+    "assert candidate(s = \"\") == True",
+    "assert candidate(s = \"A man, a plan, a canal: Panama\") == True",
     "assert candidate(s = \"race a car\") == False",
-    "assert candidate(s = \" \") == True"
+    "assert candidate(s = \" \") == True",
+    "assert candidate(s = \"0P\") == False",
+    "assert candidate(s = \"abba\") == True",
+    "assert candidate(s = \"Able was I, ere I saw Elba\") == True",
+    "assert candidate(s = \"No lemon, no melon\") == True"
   ]
 }

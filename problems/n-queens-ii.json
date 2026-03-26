@@ -5,20 +5,19 @@
   "tags": [
     "Backtracking"
   ],
-  "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\nGiven an integer n, return the number of distinct solutions to the\u00a0n-queens puzzle.\n\u00a0\nExample 1:\n\n\nInput: n = 4\nOutput: 2\nExplanation: There are two distinct solutions to the 4-queens puzzle as shown.\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n\u00a0\nConstraints:\n\n1 <= n <= 9\n\n",
+  "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\nGiven an integer n, return the number of distinct solutions to the n-queens puzzle.\n \nExample 1:\n\n\nInput: n = 4\nOutput: 2\nExplanation: There are two distinct solutions to the 4-queens puzzle as shown.\n\nExample 2:\n\nInput: n = 1\nOutput: 1\n\n \nConstraints:\n\n1 <= n <= 9\n\n",
   "entry_point": "Solution().totalNQueens",
   "starter_code": "class Solution:\n    def totalNQueens(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 8) == 92\n    assert candidate(n = 3) == 0\n    assert candidate(n = 4) == 2\n    assert candidate(n = 9) == 352\n    assert candidate(n = 6) == 4\n    assert candidate(n = 2) == 0\n    assert candidate(n = 1) == 1\n    assert candidate(n = 7) == 40\n    assert candidate(n = 5) == 10\n",
+  "check_function": "def check(candidate):\n    assert candidate(n = 1) == 1\n    assert candidate(n = 2) == 0\n    assert candidate(n = 3) == 0\n    assert candidate(n = 4) == 2\n    assert candidate(n = 5) == 10\n    assert candidate(n = 6) == 4\n    assert candidate(n = 7) == 40\n    assert candidate(n = 8) == 92\n",
   "test_cases": [
-    "assert candidate(n = 8) == 92",
+    "assert candidate(n = 1) == 1",
+    "assert candidate(n = 2) == 0",
     "assert candidate(n = 3) == 0",
     "assert candidate(n = 4) == 2",
-    "assert candidate(n = 9) == 352",
+    "assert candidate(n = 5) == 10",
     "assert candidate(n = 6) == 4",
-    "assert candidate(n = 2) == 0",
-    "assert candidate(n = 1) == 1",
     "assert candidate(n = 7) == 40",
-    "assert candidate(n = 5) == 10"
+    "assert candidate(n = 8) == 92"
   ]
 }

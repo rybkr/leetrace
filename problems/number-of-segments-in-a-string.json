@@ -5,13 +5,20 @@
   "tags": [
     "String"
   ],
-  "description": "Given a string s, return the number of segments in the string.\nA segment is defined to be a contiguous sequence of non-space characters.\n\u00a0\nExample 1:\n\nInput: s = \"Hello, my name is John\"\nOutput: 5\nExplanation: The five segments are [\"Hello,\", \"my\", \"name\", \"is\", \"John\"]\n\nExample 2:\n\nInput: s = \"Hello\"\nOutput: 1\n\n\u00a0\nConstraints:\n\n0 <= s.length <= 300\ns consists of lowercase and uppercase English letters, digits, or one of the following characters \"!@#$%^&*()_+-=',.:\".\nThe only space character in s is ' '.\n\n",
+  "description": "Given a string s, return the number of segments in the string.\nA segment is defined to be a contiguous sequence of non-space characters.\n \nExample 1:\n\nInput: s = \"Hello, my name is John\"\nOutput: 5\nExplanation: The five segments are [\"Hello,\", \"my\", \"name\", \"is\", \"John\"]\n\nExample 2:\n\nInput: s = \"Hello\"\nOutput: 1\n\n \nConstraints:\n\n0 <= s.length <= 300\ns consists of lowercase and uppercase English letters, digits, or one of the following characters \"!@#$%^&*()_+-=',.:\".\nThe only space character in s is ' '.\n\n",
   "entry_point": "Solution().countSegments",
   "starter_code": "class Solution:\n    def countSegments(self, s: str) -> int:",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(s = \"Hello, my name is John\") == 5\n    assert candidate(s = \"Hello\") == 1\n",
+  "check_function": "def check(candidate):\n    assert candidate(s=\"Hello, my name is John\") == 5\n    assert candidate(s=\"Hello\") == 1\n    assert candidate(s=\"\") == 0\n    assert candidate(s=\"   \") == 0\n    assert candidate(s=\"one two  three   four\") == 4\n    assert candidate(s=\" leading and trailing \") == 3\n    assert candidate(s=\"a\") == 1\n    assert candidate(s=\"a b c\") == 3\n    assert candidate(s=\"multiple   spaces\") == 2",
   "test_cases": [
-    "assert candidate(s = \"Hello, my name is John\") == 5",
-    "assert candidate(s = \"Hello\") == 1"
+    "assert candidate(s=\"Hello, my name is John\") == 5",
+    "assert candidate(s=\"Hello\") == 1",
+    "assert candidate(s=\"\") == 0",
+    "assert candidate(s=\"   \") == 0",
+    "assert candidate(s=\"one two  three   four\") == 4",
+    "assert candidate(s=\" leading and trailing \") == 3",
+    "assert candidate(s=\"a\") == 1",
+    "assert candidate(s=\"a b c\") == 3",
+    "assert candidate(s=\"multiple   spaces\") == 2"
   ]
 }

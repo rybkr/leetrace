@@ -9,23 +9,21 @@
     "Backtracking",
     "Bitmask"
   ],
-  "description": "Given an integer n, return the number of permutations of the 1-indexed array nums = [1, 2, ..., n], such that it's self-divisible.\nA 1-indexed array a of length n is self-divisible if for every 1 <= i <= n, gcd(a[i], i) == 1.\nA permutation of an array is a rearrangement of the elements of that array, for example here are all of the permutations of the array [1, 2, 3]:\n\n[1, 2, 3]\n[1, 3, 2]\n[2, 1, 3]\n[2, 3, 1]\n[3, 1, 2]\n[3, 2, 1]\n\n\u00a0\nExample 1:\n\nInput: n = 1\nOutput: 1\nExplanation: The array [1] has only 1 permutation which is self-divisible.\n\nExample 2:\n\nInput: n = 2\nOutput: 1\nExplanation: The array [1,2] has 2 permutations and only one of them is self-divisible:\nnums = [1,2]: This is not self-divisible since gcd(nums[2], 2) != 1.\nnums = [2,1]: This is self-divisible since gcd(nums[1], 1) == 1 and gcd(nums[2], 2) == 1.\n\nExample 3:\n\nInput: n = 3\nOutput: 3\nExplanation: The array [1,2,3] has 3 self-divisble permutations: [1,3,2], [3,1,2], [2,3,1].\nIt can be shown that the other 3 permutations are not self-divisible. Hence the answer is 3.\n\n\u00a0\nConstraints:\n\n1 <= n <= 12\n\n",
+  "description": "Given an integer n, return the number of permutations of the 1-indexed array nums = [1, 2, ..., n], such that it's self-divisible.\nA 1-indexed array a of length n is self-divisible if for every 1 <= i <= n, gcd(a[i], i) == 1.\nA permutation of an array is a rearrangement of the elements of that array, for example here are all of the permutations of the array [1, 2, 3]:\n\n[1, 2, 3]\n[1, 3, 2]\n[2, 1, 3]\n[2, 3, 1]\n[3, 1, 2]\n[3, 2, 1]\n\n \nExample 1:\n\nInput: n = 1\nOutput: 1\nExplanation: The array [1] has only 1 permutation which is self-divisible.\n\nExample 2:\n\nInput: n = 2\nOutput: 1\nExplanation: The array [1,2] has 2 permutations and only one of them is self-divisible:\nnums = [1,2]: This is not self-divisible since gcd(nums[2], 2) != 1.\nnums = [2,1]: This is self-divisible since gcd(nums[1], 1) == 1 and gcd(nums[2], 2) == 1.\n\nExample 3:\n\nInput: n = 3\nOutput: 3\nExplanation: The array [1,2,3] has 3 self-divisble permutations: [1,3,2], [3,1,2], [2,3,1].\nIt can be shown that the other 3 permutations are not self-divisible. Hence the answer is 3.\n\n \nConstraints:\n\n1 <= n <= 12\n\n",
   "entry_point": "Solution().selfDivisiblePermutationCount",
   "starter_code": "class Solution:\n    def selfDivisiblePermutationCount(self, n: int) -> int:\n        ",
   "preamble": "from typing import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom heapq import *\nfrom bisect import *\nfrom math import *\nimport math, collections, functools, itertools, bisect, heapq, string, re\n",
-  "check_function": "def check(candidate):\n    assert candidate(n = 8) == 324\n    assert candidate(n = 3) == 3\n    assert candidate(n = 11) == 129744\n    assert candidate(n = 4) == 4\n    assert candidate(n = 12) == 63504\n    assert candidate(n = 9) == 3600\n    assert candidate(n = 6) == 16\n    assert candidate(n = 2) == 1\n    assert candidate(n = 1) == 1\n    assert candidate(n = 7) == 256\n    assert candidate(n = 10) == 3600\n    assert candidate(n = 5) == 28\n",
+  "check_function": "def check(candidate):\n    assert candidate(n = 1) == 1\n    assert candidate(n = 2) == 1\n    assert candidate(n = 3) == 3\n    assert candidate(n = 4) == 4\n    assert candidate(n = 5) == 28\n    assert candidate(n = 6) == 16\n    assert candidate(n = 8) == 324\n    assert candidate(n = 9) == 3600\n    assert candidate(n = 10) == 3600\n    assert candidate(n = 12) == 63504",
   "test_cases": [
-    "assert candidate(n = 8) == 324",
-    "assert candidate(n = 3) == 3",
-    "assert candidate(n = 11) == 129744",
-    "assert candidate(n = 4) == 4",
-    "assert candidate(n = 12) == 63504",
-    "assert candidate(n = 9) == 3600",
-    "assert candidate(n = 6) == 16",
-    "assert candidate(n = 2) == 1",
     "assert candidate(n = 1) == 1",
-    "assert candidate(n = 7) == 256",
+    "assert candidate(n = 2) == 1",
+    "assert candidate(n = 3) == 3",
+    "assert candidate(n = 4) == 4",
+    "assert candidate(n = 5) == 28",
+    "assert candidate(n = 6) == 16",
+    "assert candidate(n = 8) == 324",
+    "assert candidate(n = 9) == 3600",
     "assert candidate(n = 10) == 3600",
-    "assert candidate(n = 5) == 28"
+    "assert candidate(n = 12) == 63504"
   ]
 }
