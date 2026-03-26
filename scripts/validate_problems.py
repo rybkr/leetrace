@@ -81,8 +81,14 @@ def validate_one(args: tuple) -> dict:
 
     problem_path = PROBLEMS_DIR / f"{problem_id}.json"
     if not problem_path.exists():
-        return {"id": problem_id, "category": "error", "passed": 0, "total": 0,
-                "pass_rate": 0.0, "error": "Problem file not found"}
+        return {
+            "id": problem_id,
+            "category": "error",
+            "passed": 0,
+            "total": 0,
+            "pass_rate": 0.0,
+            "error": "Problem file not found",
+        }
 
     problem = json.loads(problem_path.read_text())
     test_cases = problem.get("test_cases", [])
@@ -90,13 +96,24 @@ def validate_one(args: tuple) -> dict:
     preamble = problem.get("preamble", "")
 
     if not test_cases:
-        return {"id": problem_id, "category": "error", "passed": 0, "total": 0,
-                "pass_rate": 0.0, "error": "No test cases"}
+        return {
+            "id": problem_id,
+            "category": "error",
+            "passed": 0,
+            "total": 0,
+            "pass_rate": 0.0,
+            "error": "No test cases",
+        }
 
     if is_all_none(test_cases):
-        return {"id": problem_id, "category": "untestable", "passed": 0,
-                "total": len(test_cases), "pass_rate": 0.0,
-                "error": "All test cases assert == None"}
+        return {
+            "id": problem_id,
+            "category": "untestable",
+            "passed": 0,
+            "total": len(test_cases),
+            "pass_rate": 0.0,
+            "error": "All test cases assert == None",
+        }
 
     result = _run_sync(
         code=solution_code,
@@ -118,8 +135,14 @@ def validate_one(args: tuple) -> dict:
     else:
         category = "error"
 
-    return {"id": problem_id, "category": category, "passed": passed,
-            "total": total, "pass_rate": round(pass_rate, 4), "error": error}
+    return {
+        "id": problem_id,
+        "category": category,
+        "passed": passed,
+        "total": total,
+        "pass_rate": round(pass_rate, 4),
+        "error": error,
+    }
 
 
 def run_fresh_validation(index: list[dict], workers: int) -> list[dict]:
@@ -172,24 +195,46 @@ def run_fresh_validation(index: list[dict], workers: int) -> list[dict]:
         prob_path = PROBLEMS_DIR / f"{pid}.json"
 
         if not prob_path.exists():
-            results.append({"id": pid, "category": "error", "passed": 0, "total": 0,
-                            "pass_rate": 0.0, "error": "Problem file not found"})
+            results.append(
+                {
+                    "id": pid,
+                    "category": "error",
+                    "passed": 0,
+                    "total": 0,
+                    "pass_rate": 0.0,
+                    "error": "Problem file not found",
+                }
+            )
             continue
 
         prob_data = json.loads(prob_path.read_text())
         test_cases = prob_data.get("test_cases", [])
 
         if is_all_none(test_cases):
-            results.append({"id": pid, "category": "untestable", "passed": 0,
-                            "total": len(test_cases), "pass_rate": 0.0,
-                            "error": "All test cases assert == None"})
+            results.append(
+                {
+                    "id": pid,
+                    "category": "untestable",
+                    "passed": 0,
+                    "total": len(test_cases),
+                    "pass_rate": 0.0,
+                    "error": "All test cases assert == None",
+                }
+            )
             continue
 
         if pid not in ref_solutions:
             unmatched_count += 1
-            results.append({"id": pid, "category": "unmatched", "passed": 0, "total": 0,
-                            "pass_rate": 0.0,
-                            "error": "No reference solution in HuggingFace dataset"})
+            results.append(
+                {
+                    "id": pid,
+                    "category": "unmatched",
+                    "passed": 0,
+                    "total": 0,
+                    "pass_rate": 0.0,
+                    "error": "No reference solution in HuggingFace dataset",
+                }
+            )
             continue
 
         any_order = detect_any_order(problem_descriptions.get(pid, ""))
@@ -201,7 +246,9 @@ def run_fresh_validation(index: list[dict], workers: int) -> list[dict]:
     print(f"To validate via sandbox: {len(work_items)}")
 
     # Run sandbox validation in parallel
-    print(f"\n--- Sandbox Validation ({len(work_items)} problems, {workers} workers) ---")
+    print(
+        f"\n--- Sandbox Validation ({len(work_items)} problems, {workers} workers) ---"
+    )
     start = time.time()
     validated: list[dict] = []
 
@@ -286,7 +333,7 @@ def remove_failing_problems(
         cat = result.get("category", "unknown")
         removal_summary.setdefault(cat, []).append(pid)
 
-    print(f"\n--- Removal Plan ---")
+    print("\n--- Removal Plan ---")
     print(f"  Problems to keep (verified): {len(to_keep)}")
     print(f"  Problems to remove:          {len(to_remove)}")
     for cat, ids in sorted(removal_summary.items()):
@@ -294,9 +341,12 @@ def remove_failing_problems(
 
     if dry_run:
         print("\n[DRY RUN] No changes made. Pass without --dry-run to apply removals.")
-        return {"kept": len(to_keep), "removed": len(to_remove),
-                "by_category": {k: len(v) for k, v in removal_summary.items()},
-                "dry_run": True}
+        return {
+            "kept": len(to_keep),
+            "removed": len(to_remove),
+            "by_category": {k: len(v) for k, v in removal_summary.items()},
+            "dry_run": True,
+        }
 
     # Remove individual problem JSON files
     removed_files = 0
@@ -324,7 +374,7 @@ def remove_failing_problems(
 
     INDEX_PATH.write_text(json.dumps(kept_with_verified, indent=2) + "\n")
 
-    print(f"\n--- Changes Applied ---")
+    print("\n--- Changes Applied ---")
     print(f"  Removed {removed_files} problem JSON files from {PROBLEMS_DIR}")
     if failed_removes:
         print(f"  FAILED to remove: {failed_removes}")
@@ -352,7 +402,7 @@ def main():
         "--fresh",
         action="store_true",
         help="Re-run full validation via HuggingFace (requires: uv pip install datasets). "
-             "Without this flag, the existing validation_report.json is used if present.",
+        "Without this flag, the existing validation_report.json is used if present.",
     )
     parser.add_argument(
         "--workers",
@@ -417,7 +467,7 @@ def main():
         REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n")
         print(f"\nUpdated validation report: {REPORT_PATH}")
 
-    print(f"\n=== Final Result ===")
+    print("\n=== Final Result ===")
     print(f"  Total problems tested:  {len(results)}")
     print(f"  Verified (kept):        {summary['kept']}")
     print(f"  Removed:                {summary['removed']}")

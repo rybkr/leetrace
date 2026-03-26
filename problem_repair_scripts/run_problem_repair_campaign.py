@@ -10,7 +10,9 @@ from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-REPAIR_SCRIPT = PROJECT_ROOT / "problem_repair_scripts" / "repair_problems_with_codex.py"
+REPAIR_SCRIPT = (
+    PROJECT_ROOT / "problem_repair_scripts" / "repair_problems_with_codex.py"
+)
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "codex_problem_repair_campaigns"
 
 
@@ -108,7 +110,9 @@ def ensure_valid_args(args: argparse.Namespace) -> None:
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def write_lines(path: Path, values: list[str]) -> None:
@@ -185,7 +189,9 @@ def run_round(
 
     aggregate_path = round_dir / "aggregate.json"
     if not aggregate_path.exists():
-        raise FileNotFoundError(f"Missing aggregate for round {round_index}: {aggregate_path}")
+        raise FileNotFoundError(
+            f"Missing aggregate for round {round_index}: {aggregate_path}"
+        )
 
     aggregate = json.loads(aggregate_path.read_text(encoding="utf-8"))
     return RoundSummary(
@@ -214,7 +220,9 @@ def main() -> None:
             "Medium": args.medium_model,
             "Hard": args.hard_model,
         },
-        "base_exclude_run_dirs": [str(path.resolve()) for path in args.base_exclude_run_dir],
+        "base_exclude_run_dirs": [
+            str(path.resolve()) for path in args.base_exclude_run_dir
+        ],
         "base_exclude_ids": sorted(set(args.base_exclude_id)),
     }
     write_json(campaign_dir / "campaign_config.json", manifest)
@@ -236,8 +244,12 @@ def main() -> None:
         )
         exclude_run_dirs.append(summary.run_dir)
 
-        aggregate = json.loads((summary.run_dir / "aggregate.json").read_text(encoding="utf-8"))
-        failed_ids = sorted({item["id"] for item in aggregate.get("failed_repairs", [])})
+        aggregate = json.loads(
+            (summary.run_dir / "aggregate.json").read_text(encoding="utf-8")
+        )
+        failed_ids = sorted(
+            {item["id"] for item in aggregate.get("failed_repairs", [])}
+        )
         final_failed_ids = failed_ids
         round_summaries.append(
             {
@@ -266,15 +278,17 @@ def main() -> None:
         include_ids = failed_ids
 
     successful_total = 0
-    failed_total = 0
+    # failed_total = 0
     successful_ids: set[str] = set()
     for round_item in round_summaries:
         aggregate = json.loads(
             (Path(round_item["run_dir"]) / "aggregate.json").read_text(encoding="utf-8")
         )
         successful_total += len(aggregate.get("successful_repairs", []))
-        failed_total = len(aggregate.get("failed_repairs", []))
-        successful_ids.update(item["id"] for item in aggregate.get("successful_repairs", []))
+        # failed_total = len(aggregate.get("failed_repairs", []))
+        successful_ids.update(
+            item["id"] for item in aggregate.get("successful_repairs", [])
+        )
 
     campaign_summary = {
         "campaign_dir": str(campaign_dir.resolve()),

@@ -23,7 +23,9 @@ def parse_args() -> argparse.Namespace:
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def write_lines(path: Path, values: list[str]) -> None:
@@ -31,10 +33,15 @@ def write_lines(path: Path, values: list[str]) -> None:
 
 
 def batch_dir_for(run_dir: Path, batch_entry: dict[str, Any]) -> Path:
-    return run_dir / f"batch_{int(batch_entry['batch_index']):03d}_{batch_entry['difficulty'].lower()}"
+    return (
+        run_dir
+        / f"batch_{int(batch_entry['batch_index']):03d}_{batch_entry['difficulty'].lower()}"
+    )
 
 
-def restore_incomplete_batch(batch_dir: Path, batch_entry: dict[str, Any]) -> tuple[list[str], list[str]]:
+def restore_incomplete_batch(
+    batch_dir: Path, batch_entry: dict[str, Any]
+) -> tuple[list[str], list[str]]:
     restored: list[str] = []
     missing_backups: list[str] = []
     for problem_id, problem_path_str in zip(
@@ -178,7 +185,9 @@ def main() -> None:
     failed_repairs.sort(key=lambda item: (item["difficulty"], item["id"]))
     worker_outcomes.sort(key=lambda item: item["batch_index"])
 
-    remaining_medium_and_holdout_ids = sorted(set(remaining_medium_ids) | set(holdout_ids_easy_medium))
+    remaining_medium_and_holdout_ids = sorted(
+        set(remaining_medium_ids) | set(holdout_ids_easy_medium)
+    )
 
     aggregate = {
         "metadata": {
@@ -199,18 +208,29 @@ def main() -> None:
     write_json(run_dir / "successful_repairs.json", successful_repairs)
     write_json(run_dir / "failed_repairs.json", failed_repairs)
     write_json(run_dir / "aggregate.json", aggregate)
-    write_json(run_dir / "interrupted_problem_ids.json", sorted(set(interrupted_problem_ids)))
+    write_json(
+        run_dir / "interrupted_problem_ids.json", sorted(set(interrupted_problem_ids))
+    )
     write_json(run_dir / "remaining_medium_ids.json", sorted(set(remaining_medium_ids)))
-    write_json(run_dir / "holdout_ids_easy_medium.json", sorted(set(holdout_ids_easy_medium)))
+    write_json(
+        run_dir / "holdout_ids_easy_medium.json", sorted(set(holdout_ids_easy_medium))
+    )
     write_json(
         run_dir / "remaining_medium_and_holdout_ids.json",
         remaining_medium_and_holdout_ids,
     )
-    write_lines(run_dir / "remaining_medium_and_holdout_ids.txt", remaining_medium_and_holdout_ids)
+    write_lines(
+        run_dir / "remaining_medium_and_holdout_ids.txt",
+        remaining_medium_and_holdout_ids,
+    )
 
     print(f"Run directory: {run_dir}")
-    print(f"Completed batches: {sum(1 for item in worker_outcomes if item['status'] == 'completed')}")
-    print(f"Interrupted batches restored: {sum(1 for item in worker_outcomes if item['status'] == 'interrupted')}")
+    print(
+        f"Completed batches: {sum(1 for item in worker_outcomes if item['status'] == 'completed')}"
+    )
+    print(
+        f"Interrupted batches restored: {sum(1 for item in worker_outcomes if item['status'] == 'interrupted')}"
+    )
     print(f"Successful repairs saved: {len(successful_repairs)}")
     print(f"Holdouts saved: {len(failed_repairs)}")
     print(f"Remaining medium IDs: {len(set(remaining_medium_ids))}")

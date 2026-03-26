@@ -1058,7 +1058,7 @@
       "Binary Tree"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "binary-tree-level-order-traversal",
@@ -1222,7 +1222,7 @@
       "Dynamic Programming"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "pascals-triangle-ii",
@@ -2152,7 +2152,7 @@
       "Two Pointers"
     ],
     "test_count": 10,
-    "verified": true
+    "verified": false
   },
   {
     "id": "product-of-array-except-self",
@@ -4641,7 +4641,7 @@
       "Binary Tree"
     ],
     "test_count": 5,
-    "verified": true
+    "verified": false
   },
   {
     "id": "ipo",
@@ -4991,7 +4991,7 @@
       "Binary Tree"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "complex-number-multiplication",
@@ -5227,7 +5227,7 @@
       "String"
     ],
     "test_count": 5,
-    "verified": true
+    "verified": false
   },
   {
     "id": "subarray-sum-equals-k",
@@ -7768,7 +7768,7 @@
       "Simulation"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "find-and-replace-in-string",
@@ -8610,7 +8610,7 @@
       "Merge Sort"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "cat-and-mouse",
@@ -9096,7 +9096,7 @@
       "String"
     ],
     "test_count": 10,
-    "verified": true
+    "verified": false
   },
   {
     "id": "array-of-doubled-pairs",
@@ -10222,7 +10222,7 @@
       "Math"
     ],
     "test_count": 6,
-    "verified": true
+    "verified": false
   },
   {
     "id": "campus-bikes",
@@ -10604,7 +10604,7 @@
       "Heap (Priority Queue)"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "distribute-candies-to-people",
@@ -10702,7 +10702,7 @@
       "String"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "maximum-average-subtree",
@@ -10862,7 +10862,7 @@
       "Heap (Priority Queue)"
     ],
     "test_count": 9,
-    "verified": true
+    "verified": false
   },
   {
     "id": "parallel-courses",
@@ -14003,7 +14003,7 @@
       "Sorting"
     ],
     "test_count": 4,
-    "verified": true
+    "verified": false
   },
   {
     "id": "last-moment-before-all-ants-fall-out-of-a-plank",
@@ -14491,7 +14491,7 @@
       "Rolling Hash"
     ],
     "test_count": 6,
-    "verified": true
+    "verified": false
   },
   {
     "id": "thousand-separator",
@@ -18344,7 +18344,7 @@
       "Graph"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "count-nodes-equal-to-sum-of-descendants",
@@ -19035,7 +19035,7 @@
       "Enumeration"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "second-minimum-time-to-reach-destination",
@@ -19190,7 +19190,7 @@
       "Array"
     ],
     "test_count": 9,
-    "verified": true
+    "verified": false
   },
   {
     "id": "number-of-spaces-cleaning-robot-cleaned",
@@ -22563,7 +22563,7 @@
       "Combinatorics"
     ],
     "test_count": 9,
-    "verified": true
+    "verified": false
   },
   {
     "id": "longest-nice-subarray",
@@ -23880,7 +23880,7 @@
       "Math"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "distinct-prime-factors-of-product-of-array",
@@ -24217,7 +24217,7 @@
       "Simulation"
     ],
     "test_count": 110,
-    "verified": true
+    "verified": false
   },
   {
     "id": "maximum-number-of-integers-to-choose-from-a-range-i",
@@ -25146,7 +25146,7 @@
       "Hash Table"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "maximum-number-of-fish-in-a-grid",
@@ -25623,7 +25623,7 @@
       "Sorting"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "lexicographically-smallest-string-after-substring-operation",
@@ -25869,7 +25869,7 @@
       "Enumeration"
     ],
     "test_count": 8,
-    "verified": true
+    "verified": false
   },
   {
     "id": "relocate-marbles",

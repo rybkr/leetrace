@@ -3,25 +3,37 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-REPAIR_SCRIPT = PROJECT_ROOT / "problem_repair_scripts" / "repair_problems_with_codex.py"
+REPAIR_SCRIPT = (
+    PROJECT_ROOT / "problem_repair_scripts" / "repair_problems_with_codex.py"
+)
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "codex_problem_repair_runs"
 DEFAULT_SOURCE_RUN_DIR = (
-    PROJECT_ROOT / "codex_problem_repair_runs" / "remaining_mediums_and_holdouts_gpt54_high_fast_v2"
+    PROJECT_ROOT
+    / "codex_problem_repair_runs"
+    / "remaining_mediums_and_holdouts_gpt54_high_fast_v2"
 )
 DEFAULT_EXCLUDE_RUN_DIRS = [
     PROJECT_ROOT / "codex_problem_repair_runs" / "smoke_single_easy_v2",
     PROJECT_ROOT / "codex_problem_repair_runs" / "pilot_20_each_v1",
-    PROJECT_ROOT / "codex_problem_repair_campaigns" / "full_run_gpt54_campaign" / "round_01",
+    PROJECT_ROOT
+    / "codex_problem_repair_campaigns"
+    / "full_run_gpt54_campaign"
+    / "round_01",
 ]
 DEFAULT_HOLDOUT_RUN_DIRS = [
-    PROJECT_ROOT / "codex_problem_repair_runs" / "holdout_followup_v1" / "medium_holdouts",
-    PROJECT_ROOT / "codex_problem_repair_runs" / "holdout_followup_v1" / "easy_holdouts",
+    PROJECT_ROOT
+    / "codex_problem_repair_runs"
+    / "holdout_followup_v1"
+    / "medium_holdouts",
+    PROJECT_ROOT
+    / "codex_problem_repair_runs"
+    / "holdout_followup_v1"
+    / "easy_holdouts",
 ]
 MANUAL_SUCCESS_IDS = ["roman-to-integer", "reverse-nodes-in-k-group"]
 
@@ -131,7 +143,9 @@ def ensure_valid_args(args: argparse.Namespace) -> None:
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def write_lines(path: Path, values: list[str]) -> None:
@@ -139,7 +153,9 @@ def write_lines(path: Path, values: list[str]) -> None:
 
 
 def make_campaign_dir(args: argparse.Namespace) -> Path:
-    name = args.campaign_name or datetime.now().strftime("holdout_followup_%Y%m%d_%H%M%S")
+    name = args.campaign_name or datetime.now().strftime(
+        "holdout_followup_%Y%m%d_%H%M%S"
+    )
     campaign_dir = args.output_root / name
     campaign_dir.mkdir(parents=True, exist_ok=True)
     return campaign_dir
@@ -156,7 +172,11 @@ def load_remaining_ids(source_run_dir: Path) -> list[str]:
         return [str(item).strip() for item in payload if str(item).strip()]
 
     if txt_path.exists():
-        return [line.strip() for line in txt_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        return [
+            line.strip()
+            for line in txt_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
 
     raise FileNotFoundError(
         "Could not find remaining holdout IDs. Expected one of: "
@@ -165,7 +185,9 @@ def load_remaining_ids(source_run_dir: Path) -> list[str]:
 
 
 def load_difficulty_by_id() -> dict[str, str]:
-    index = json.loads((PROJECT_ROOT / "problems" / "index.json").read_text(encoding="utf-8"))
+    index = json.loads(
+        (PROJECT_ROOT / "problems" / "index.json").read_text(encoding="utf-8")
+    )
     return {
         item["id"]: item["difficulty"]
         for item in index
@@ -182,7 +204,9 @@ def load_failed_ids(run_dirs: list[Path]) -> set[str]:
         if failed_path.exists():
             payload = json.loads(failed_path.read_text(encoding="utf-8"))
         elif aggregate_path.exists():
-            payload = json.loads(aggregate_path.read_text(encoding="utf-8")).get("failed_repairs", [])
+            payload = json.loads(aggregate_path.read_text(encoding="utf-8")).get(
+                "failed_repairs", []
+            )
         else:
             continue
         for item in payload:
@@ -252,7 +276,9 @@ def build_phase_command(
 def run_phase(cmd: list[str]) -> None:
     process = subprocess.run(cmd, cwd=PROJECT_ROOT)
     if process.returncode != 0:
-        raise RuntimeError(f"Phase failed with exit code {process.returncode}: {' '.join(cmd)}")
+        raise RuntimeError(
+            f"Phase failed with exit code {process.returncode}: {' '.join(cmd)}"
+        )
 
 
 def main() -> None:
@@ -280,7 +306,12 @@ def main() -> None:
                 holdout_run_dirs.append(resolved)
         explicit_holdout_ids = load_failed_ids(holdout_run_dirs)
         repaired_ids = load_successful_ids(
-            [*DEFAULT_EXCLUDE_RUN_DIRS, source_run_dir, *holdout_run_dirs, *args.exclude_run_dir]
+            [
+                *DEFAULT_EXCLUDE_RUN_DIRS,
+                source_run_dir,
+                *holdout_run_dirs,
+                *args.exclude_run_dir,
+            ]
         )
         remaining_ids = sorted(
             problem_id
@@ -303,7 +334,9 @@ def main() -> None:
             unknown_ids.append(problem_id)
 
     if unknown_ids:
-        raise ValueError(f"Found IDs outside Easy/Medium or missing from index: {unknown_ids[:10]}")
+        raise ValueError(
+            f"Found IDs outside Easy/Medium or missing from index: {unknown_ids[:10]}"
+        )
 
     campaign_dir = make_campaign_dir(args)
     easy_ids_path = campaign_dir / "easy_holdout_ids.txt"

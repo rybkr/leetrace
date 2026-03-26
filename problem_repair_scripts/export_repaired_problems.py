@@ -26,7 +26,10 @@ DEFAULT_TIMEOUT_SECONDS = 20
 DEFAULT_MEMORY_MB = 256
 DEFAULT_FAIL_RATE_THRESHOLD = 0.15
 DEFAULT_AGGREGATE_PATHS = [
-    PROJECT_ROOT / "codex_problem_repair_runs" / "smoke_single_easy_v2" / "aggregate.json",
+    PROJECT_ROOT
+    / "codex_problem_repair_runs"
+    / "smoke_single_easy_v2"
+    / "aggregate.json",
     PROJECT_ROOT / "codex_problem_repair_runs" / "pilot_20_each_v1" / "aggregate.json",
     PROJECT_ROOT
     / "codex_problem_repair_campaigns"
@@ -181,7 +184,9 @@ def ensure_valid_args(args: argparse.Namespace) -> None:
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def build_check_function(test_cases: list[str]) -> str:
@@ -225,7 +230,11 @@ def load_problem_sources(include_ids: set[str] | None) -> list[ProblemSource]:
         )
 
     if include_ids:
-        sources = {problem_id: source for problem_id, source in sources.items() if problem_id in include_ids}
+        sources = {
+            problem_id: source
+            for problem_id, source in sources.items()
+            if problem_id in include_ids
+        }
 
     index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
     ordered_ids = [
@@ -242,8 +251,12 @@ def _set_limits(cpu_seconds: int, memory_bytes: int) -> None:
 
         resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
         resource.setrlimit(resource.RLIMIT_AS, (memory_bytes, memory_bytes))
-        resource.setrlimit(resource.RLIMIT_FSIZE, (_FILE_SIZE_LIMIT_BYTES, _FILE_SIZE_LIMIT_BYTES))
-        resource.setrlimit(resource.RLIMIT_NPROC, (_MAX_CHILD_PROCESSES, _MAX_CHILD_PROCESSES))
+        resource.setrlimit(
+            resource.RLIMIT_FSIZE, (_FILE_SIZE_LIMIT_BYTES, _FILE_SIZE_LIMIT_BYTES)
+        )
+        resource.setrlimit(
+            resource.RLIMIT_NPROC, (_MAX_CHILD_PROCESSES, _MAX_CHILD_PROCESSES)
+        )
     except (ImportError, OSError, ValueError):
         pass
 
@@ -451,7 +464,9 @@ def evaluate_problem(
     status = "kept" if failed_tests == 0 else "trimmed"
     reason = None
     if failed_tests:
-        reason = f"Removed {failed_tests}/{total_tests} failing tests ({fail_rate:.1%})."
+        reason = (
+            f"Removed {failed_tests}/{total_tests} failing tests ({fail_rate:.1%})."
+        )
     return (
         ProblemOutcome(
             id=source.id,
@@ -469,7 +484,9 @@ def evaluate_problem(
     )
 
 
-def build_validation_report(outcomes: list[ProblemOutcome], kept_ids: list[str]) -> dict[str, Any]:
+def build_validation_report(
+    outcomes: list[ProblemOutcome], kept_ids: list[str]
+) -> dict[str, Any]:
     kept = [outcome for outcome in outcomes if outcome.status in {"kept", "trimmed"}]
     dropped = [outcome for outcome in outcomes if outcome.status == "dropped"]
     trimmed = [outcome for outcome in outcomes if outcome.status == "trimmed"]
@@ -548,7 +565,11 @@ def main() -> None:
             )
 
     outcomes.sort(key=lambda item: item.id)
-    kept_outcomes = {outcome.id: outcome for outcome in outcomes if outcome.status in {"kept", "trimmed"}}
+    kept_outcomes = {
+        outcome.id: outcome
+        for outcome in outcomes
+        if outcome.status in {"kept", "trimmed"}
+    }
 
     index_entries = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
     exported_index = []
@@ -570,7 +591,10 @@ def main() -> None:
         )
 
     write_json(output_dir / "index.json", exported_index)
-    write_json(output_dir / "validation_report.json", build_validation_report(outcomes, kept_ids))
+    write_json(
+        output_dir / "validation_report.json",
+        build_validation_report(outcomes, kept_ids),
+    )
     write_json(
         output_dir / "export_report.json",
         {

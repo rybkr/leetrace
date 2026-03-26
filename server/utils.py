@@ -75,11 +75,25 @@ def fix_subscripts(text: str) -> str:
     # --- Pass 2: multi-letter collapsed subscripts (4+ chars) ---
     # e.g. arrivali → arrivalᵢ, pointsi → pointsᵢ
     # Skip content inside double quotes to avoid mangling string literals.
-    _STOP_WORDS = frozenset({
-        "mini", "maxi", "taxi", "semi", "anti", "multi", "ascii",
-        "wiki", "khaki", "alibi", "alumni", "bikini", "chili",
-        "safari", "sushi",
-    })
+    _STOP_WORDS = frozenset(
+        {
+            "mini",
+            "maxi",
+            "taxi",
+            "semi",
+            "anti",
+            "multi",
+            "ascii",
+            "wiki",
+            "khaki",
+            "alibi",
+            "alumni",
+            "bikini",
+            "chili",
+            "safari",
+            "sushi",
+        }
+    )
 
     def _fix_multi(m: re.Match) -> str:
         if m.group(0).lower() in _STOP_WORDS:

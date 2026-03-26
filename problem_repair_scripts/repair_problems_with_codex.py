@@ -181,10 +181,7 @@ def parse_args() -> argparse.Namespace:
         "--worker-timeout-seconds",
         type=int,
         default=DEFAULT_TIMEOUT_SECONDS,
-        help=(
-            "Per-worker timeout in seconds. Default: "
-            f"{DEFAULT_TIMEOUT_SECONDS}."
-        ),
+        help=(f"Per-worker timeout in seconds. Default: {DEFAULT_TIMEOUT_SECONDS}."),
     )
     parser.add_argument(
         "--per-difficulty-limit",
@@ -289,7 +286,9 @@ def resolve_reasoning_by_difficulty(args: argparse.Namespace) -> dict[str, str]:
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def make_run_dir(args: argparse.Namespace) -> Path:
@@ -410,7 +409,8 @@ def build_batches(
                     stdout_path=batch_dir / "worker.stdout.log",
                     stderr_path=batch_dir / "worker.stderr.log",
                     output_path=batch_dir / "worker.result.json",
-                    unsolved_path=batch_dir / f"unsolved_{difficulty.lower()}_batch_{batch_counter:03d}.json",
+                    unsolved_path=batch_dir
+                    / f"unsolved_{difficulty.lower()}_batch_{batch_counter:03d}.json",
                 )
             )
     return plans
@@ -612,8 +612,12 @@ def run_worker(
             timeout=timeout_seconds,
         )
     except subprocess.TimeoutExpired as exc:
-        plan.stdout_path.write_text(coerce_subprocess_output(exc.stdout), encoding="utf-8")
-        plan.stderr_path.write_text(coerce_subprocess_output(exc.stderr), encoding="utf-8")
+        plan.stdout_path.write_text(
+            coerce_subprocess_output(exc.stdout), encoding="utf-8"
+        )
+        plan.stderr_path.write_text(
+            coerce_subprocess_output(exc.stderr), encoding="utf-8"
+        )
         return WorkerOutcome(
             plan=plan,
             success=False,
@@ -738,7 +742,9 @@ def verify_assignment(
     passed = result.get("passed", 0)
     total = result.get("total", len(test_cases))
     if passed != total or total == 0:
-        error = result.get("error") or result.get("first_failure") or "Verification failed."
+        error = (
+            result.get("error") or result.get("first_failure") or "Verification failed."
+        )
         return False, f"Expected solution failed local verification: {error}", 0
 
     return True, "", total
@@ -749,7 +755,9 @@ def reconcile_batch(
     index_entries: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     plan = outcome.plan
-    assignment_by_id = {assignment.record.id: assignment for assignment in plan.assignments}
+    assignment_by_id = {
+        assignment.record.id: assignment for assignment in plan.assignments
+    }
     successful_repairs: list[dict[str, Any]] = []
     failed_repairs: list[dict[str, Any]] = []
 
@@ -779,14 +787,22 @@ def reconcile_batch(
     duplicate_ids: set[str] = set()
     for item in updated:
         problem_id = item.get("id")
-        if not problem_id or problem_id in updated_by_id or problem_id in unsolved_by_id:
+        if (
+            not problem_id
+            or problem_id in updated_by_id
+            or problem_id in unsolved_by_id
+        ):
             if problem_id:
                 duplicate_ids.add(problem_id)
             continue
         updated_by_id[problem_id] = item
     for item in unsolved:
         problem_id = item.get("id")
-        if not problem_id or problem_id in unsolved_by_id or problem_id in updated_by_id:
+        if (
+            not problem_id
+            or problem_id in unsolved_by_id
+            or problem_id in updated_by_id
+        ):
             if problem_id:
                 duplicate_ids.add(problem_id)
             continue
@@ -889,7 +905,8 @@ def reconcile_batch(
         [
             {"id": item["id"], "reason": item["reason"]}
             for item in failed_repairs
-            if item.get("difficulty") == plan.difficulty and item.get("batch_index") == plan.batch_index
+            if item.get("difficulty") == plan.difficulty
+            and item.get("batch_index") == plan.batch_index
         ],
     )
 
@@ -934,9 +951,12 @@ def build_batch_manifest(plans: list[BatchPlan]) -> list[dict[str, Any]]:
                 "reasoning_effort": plan.reasoning_effort,
                 "prompt_variant": plan.prompt_variant,
                 "unsolved_path": str(plan.unsolved_path),
-                "problem_ids": [assignment.record.id for assignment in plan.assignments],
+                "problem_ids": [
+                    assignment.record.id for assignment in plan.assignments
+                ],
                 "problem_paths": [
-                    str(assignment.record.problem_path) for assignment in plan.assignments
+                    str(assignment.record.problem_path)
+                    for assignment in plan.assignments
                 ],
                 "solution_paths": [
                     str(assignment.solution_path) for assignment in plan.assignments
@@ -1038,7 +1058,9 @@ def main() -> None:
 
         for completed, future in enumerate(as_completed(futures), start=1):
             outcome = future.result()
-            repaired, failed = reconcile_batch(outcome=outcome, index_entries=index_entries)
+            repaired, failed = reconcile_batch(
+                outcome=outcome, index_entries=index_entries
+            )
             successful_repairs.extend(repaired)
             failed_repairs.extend(failed)
             write_json(INDEX_PATH, index_entries)
@@ -1074,9 +1096,7 @@ def main() -> None:
     aggregate = {
         "metadata": metadata,
         "selected_problem_ids": [
-            assignment.record.id
-            for plan in plans
-            for assignment in plan.assignments
+            assignment.record.id for plan in plans for assignment in plan.assignments
         ],
         "worker_outcomes": outcomes_summary,
         "successful_repairs": successful_repairs,

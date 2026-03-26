@@ -207,9 +207,7 @@ async def handle_resign(ws: WebSocket, room: Room, player_name: str) -> None:
     total = len(room.players)
     count = sum(1 for p in room.players.values() if p.resigned)
 
-    await broadcast(
-        room, {"type": "resign_update", "count": count, "total": total}
-    )
+    await broadcast(room, {"type": "resign_update", "count": count, "total": total})
 
     if all(p.resigned for p in room.players.values()):
         await end_game(room)
@@ -477,7 +475,10 @@ async def websocket_handler(ws: WebSocket, room_id: str) -> None:
             elif msg_type == "skip_break" and player_name:
                 if player_name != room.host:
                     await send_error(ws, "Only the host can skip the break")
-                elif room.state != RoomState.FINISHED or room.current_round >= room.total_rounds:
+                elif (
+                    room.state != RoomState.FINISHED
+                    or room.current_round >= room.total_rounds
+                ):
                     await send_error(ws, "Cannot skip break right now")
                 else:
                     await start_next_round(room)

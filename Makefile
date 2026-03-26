@@ -11,7 +11,7 @@ BACKEND_PORT ?= 8000
 
 ## help: Display this help message
 help:
-	@awk 'BEGIN {print "Available targets:\n"} /^## / {gsub(/^## /, ""); split($$0, a, ": "); printf "  %-18s %s\n", a[1], a[2]}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {print "Available targets:"} /^## / {gsub(/^## /, ""); split($$0, a, ": "); printf "  %-18s %s\n", a[1], a[2]}' $(MAKEFILE_LIST)
 
 ## format: Format Python code with ruff
 format:
