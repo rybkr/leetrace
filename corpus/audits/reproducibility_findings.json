@@ -1,9 +1,0 @@
-{
-  "initial_findings": [
-    "string-transforms-into-another-string",
-    "unique-number-of-occurrences",
-    "remove-sub-folders-from-the-filesystem",
-    "search-suggestions-system"
-  ],
-  "method": "Two separate Python generator processes, same seed0, compared sorted calls."
-}

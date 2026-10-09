@@ -1,4 +1,0 @@
-class Solution:
-    def countCharacters(self, words: List[str], chars: str) -> int:
-        available = Counter(chars)
-        return sum(len(word) for word in words if not (Counter(word) - available))

@@ -1,6 +1,0 @@
-class Solution:
-    def minPairSum(self, nums: List[int]) -> int:
-        ordered = sorted(nums)
-        return max(
-            ordered[index] + ordered[-index - 1] for index in range(len(ordered) // 2)
-        )

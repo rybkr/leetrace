@@ -1,125 +1,61 @@
 # LeetRace
 
-Multiplayer LeetCode racing webapp. Create a room, invite friends, and race to solve the same problem — shortest solution wins.
+Race friends to solve the same problem in Python. Create a room, share its six-character code, and complete the Python starter in the Monaco editor. Correct solutions rank by character count, then lock time. Unsolved solutions rank by tests passed. Rooms support timed rounds, chat, resignation, and code review after each round.
 
-## How It Works
+## Run locally
 
-1. **Create a room** — pick a difficulty (Easy / Medium / Hard) and a time limit (1–10 min)
-2. **Share the 6-character room code** with other players
-3. **Race** — everyone gets the same problem and a Monaco code editor
-4. **Submit** — solutions run against 500–999 hidden test cases, or the complete legal domain for smaller problems
-5. **Rank** — solved it? fewest characters wins (code golf). Didn't solve it? most tests passed ranks higher
+Install Node.js 24 or newer, pnpm, and Python 3.9 or newer, then run:
 
-## Quick Start
-
-```bash
-# requires Python 3.14+ and uv
-uv sync
-python main.py
+```sh
+pnpm install
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+pnpm dev
 ```
 
-Open `http://localhost:8000` in your browser.
+Open http://localhost:3000. Vite proxies tRPC requests to the backend on port 8000. Copy `.env.example` to `.env` to change `FRONTEND_PORT` and `BACKEND_PORT`.
 
-## Problem set
+For the production build:
 
-The corpus originated from [LeetCodeDataset](https://huggingface.co/datasets/newfacade/LeetCodeDataset).
-The bundled problems are maintained with local reference solutions and input generators.
-
-| Difficulty | Count |
-|------------|-------|
-| Easy       | 583   |
-| Medium     | 1,315 |
-| Hard       | 571   |
-
-## Corpus maintenance
-
-Each retained problem has a Python reference solution in `corpus/solutions/` and
-a seeded input generator in `corpus/generators/`. Generators produce 500–999
-distinct inputs, or enumerate the complete legal domain when it is smaller.
-Statements specify output ordering and tie rules, and use Markdown.
-
-Rebuild a problem's expected outputs from its reference solution:
-
-```bash
-uv run task corpus build two-sum
+```sh
+pnpm build
+pnpm start
 ```
 
-The build checks input uniqueness, computes expected outputs, and verifies the
-full suite in the submission sandbox before writing the JSON. Mutation wrappers
-check both the return value and the required changed state. Large literal inputs
-and expected lists use lossless compressed JSON; comparison still checks the
-exact order and values.
+The TypeScript backend serves the React build and tRPC from http://localhost:8000. Python is used only to execute submissions. The Dockerfile includes both runtimes. The Fly configuration allocates 1 GB for large suites and submission workers. `/health` returns the server's health status.
 
-```bash
-uv run task corpus verify           # Verify all bundled reference solutions
-uv run task corpus verify two-sum   # Verify one saved suite
-uv run task ci                     # Type checks, lint, and project tests
+## Development
+
+```sh
+pnpm run ci      # Type check, lint, test, and build locally
+pnpm typecheck
+pnpm lint
+pnpm test
 ```
 
-Repair reports and seeded random audit selections are saved under `corpus/`.
-Use these saved references to maintain the corpus; the older dataset-import
-scripts do not implement its deterministic output contracts.
+One package and lockfile cover both frontend and backend.
 
-## Architecture
+- `frontend/src/` contains the React UI, Python editor, and tRPC client, all written in TypeScript.
+- `server/` contains the tRPC router, room state, problem loader, and submission judge.
+- `tests/` checks judging, room transitions, transport, and the problem corpus.
+- `problems/` contains one JSON file per repaired problem. There is no separate index.
 
-```
-leetrace/
-├── main.py                  # Entry point — uvicorn on 0.0.0.0:8000
-├── server/
-│   ├── app.py               # FastAPI routes + WebSocket mount
-│   ├── ws.py                # WebSocket handler (join, start, submit, timer)
-│   ├── rooms.py             # In-memory room & player state
-│   ├── scoring.py           # Ranking: solved > char_count > time > tests_passed
-│   ├── problems.py          # Problem loading with difficulty filtering
-│   └── sandbox.py           # Subprocess execution with resource limits
-├── static/
-│   ├── index.html           # Landing page (create / join)
-│   ├── room.html            # Game room (lobby → playing → finished)
-│   ├── css/style.css        # Dark theme
-│   └── js/
-│       ├── app.js           # Landing page logic
-│       ├── room.js          # WebSocket client & game state
-│       └── editor.js        # Monaco editor wrapper
-├── scripts/
-│   └── corpus.py            # Generate expected outputs and verify saved suites
-├── corpus/                  # Reference solutions, generators, and repair/audit reports
-└── problems/                # Problem JSON files + index.json
-```
+The client infers request and response types from the tRPC router. Zod validates incoming requests and problem files. [tRPC subscriptions](https://trpc.io/docs/server/subscriptions) send personalized room snapshots over server-sent events. Room membership uses a random player token, stored in session storage, so refreshing the tab restores the session and draft. Opponent code appears only after the round ends.
 
-## API
+Rooms live in memory and reset when the server restarts. Run a single backend process per deployment.
 
-| Method | Endpoint           | Description                        |
-|--------|--------------------|------------------------------------|
-| POST   | `/api/rooms`       | Create a room (host, time, difficulty) |
-| GET    | `/api/rooms/{id}`  | Get room state                     |
-| GET    | `/api/problems`    | List all problems                  |
-| WS     | `/ws/{room_id}`    | Game WebSocket                     |
+## Problem data
 
-## Sandbox
+The retained corpus originated from [LeetCodeDataset](https://huggingface.co/datasets/newfacade/LeetCodeDataset). Each filename is the problem ID. JSON files retain the title, difficulty, Markdown statement with examples and constraints, Python submission interface, and test inputs with expected outputs. Example explanations appear as prose outside the input and output snippets. Problems with unavailable illustrations are omitted. Floating-point problems also retain their comparison tolerances.
 
-User code runs in an isolated subprocess with hard limits:
+Tests contain data, not executable assertions. Saved reference solutions, generators, duplicate test functions, topic tags, repair logs, and older problem snapshots have been removed. Linked lists and trees are stored as JSON data and become `ListNode` and `TreeNode` objects when passed to Python solutions. The judge checks in-place mutations where required. Integers beyond JavaScript's safe range use a decimal `$bigint` tag in storage and ordinary Python integers in submissions.
 
-- **CPU**: 5 seconds
-- **Memory**: 256 MB
-- **Wall clock**: 10 seconds
-- **File writes**: 1 MB
-- **Subprocesses**: none allowed
+Large testcase values use a `$json` field containing base64-encoded zlib JSON, with a `bytes` field for the decoded size. This lossless encoding keeps large suites small on disk and lets the judge decode expected results one testcase at a time.
 
-These are the default limits. Problems with large finite output domains declare
-their own CPU and memory budgets. Each testcase gets a fresh solution instance,
-and comparisons preserve list ordering.
+## Submission judging
 
-## Scoring
+Python submissions complete the supplied starter, usually a method on `Solution`. The judge preloads wildcard imports from `typing`, `string`, `re`, `datetime`, `collections`, `heapq`, `bisect`, `copy`, `math`, `random`, `statistics`, `itertools`, `functools`, `operator`, `io`, `sys`, `json`, `builtins`, and `sortedcontainers`, in that order. These imports do not count toward the score. The runner uses `.venv/bin/python3` when available, or `PYTHON_BIN` if set.
 
-Players are ranked by:
+The TypeScript judge runs code in a separate Python process, with a fresh namespace for every testcase. Expected outputs stay in the parent process. Feedback includes tests passed, runtime, bounded stdout and stderr, and the first failing input and output. Character counts include whitespace.
 
-1. **Solved** (yes before no)
-2. **Character count** (fewer is better — code golf)
-3. **Submit time** (faster is better)
-4. **Tests passed** (more is better — tiebreaker for unsolved)
-
-## Tech Stack
-
-- **Backend**: FastAPI + uvicorn, vanilla Python (no database)
-- **Frontend**: Vanilla JS, [Monaco Editor](https://microsoft.github.io/monaco-editor/) v0.45.0
-- **Problems**: [newfacade/LeetCodeDataset](https://huggingface.co/datasets/newfacade/LeetCodeDataset) (HuggingFace)
+The runner limits execution time, output, and concurrency, and applies a memory cap on Linux. Python resource limits do not provide filesystem or network isolation. Public deployments accepting hostile code need operating-system or container isolation around each submission.

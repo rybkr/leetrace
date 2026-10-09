@@ -1,33 +1,24 @@
-# --- Stage 1: Build the Vite frontend ---
-FROM node:22-slim AS frontend
-
-WORKDIR /app/frontend
-COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
-COPY frontend/ .
-RUN pnpm build
-
-# --- Stage 2: Python runtime ---
-FROM python:3.13-slim
-
+FROM node:24-slim AS build
 WORKDIR /app
-
-# Install uv for fast dependency resolution
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
-
-# Install Python dependencies
-COPY pyproject.toml uv.lock ./
-RUN uv sync --no-dev --frozen
-
-# Copy application code
+RUN corepack enable
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY tsconfig*.json ./
 COPY server/ server/
-COPY main.py .
+COPY frontend/ frontend/
+RUN pnpm build && pnpm prune --prod
+
+FROM node:24-slim
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-venv && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt ./
+RUN python3 -m venv .venv && .venv/bin/pip install --no-cache-dir -r requirements.txt
+ENV NODE_ENV=production
+COPY --from=build /app/package.json ./
+COPY --from=build /app/node_modules/ node_modules/
+COPY --from=build /app/dist/ dist/
+COPY --from=build /app/frontend/dist/ frontend/dist/
 COPY problems/ problems/
-COPY static/ static/
-
-# Copy built frontend from stage 1
-COPY --from=frontend /app/frontend/dist frontend/dist
-
+USER node
 EXPOSE 8000
-
-CMD ["uv", "run", "uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["node", "dist/server/index.js"]
